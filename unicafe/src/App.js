@@ -36,16 +36,20 @@ const App = () => {
 };
 
 const Statistics = ({ good, neutral, bad, all }) => {
-  return (
-    <>
-      <Display name="good" value={good} />
-      <Display name="neutral" value={neutral} />
-      <Display name="bad" value={bad} />
-      <Display name="all" value={good + neutral + bad} />
-      <Display name="average" value={(good - bad) / all} />
-      <Display name="positive" value={(good / all) * 100} />
-    </>
-  );
+  if (good === 0 && neutral === 0 && bad === 0) {
+    return <div>No feedback given</div>;
+  } else {
+    return (
+      <>
+        <Display name="good" value={good} />
+        <Display name="neutral" value={neutral} />
+        <Display name="bad" value={bad} />
+        <Display name="all" value={good + neutral + bad} />
+        <Display name="average" value={(good - bad) / all} />
+        <Display name="positive" value={(good / all) * 100} />
+      </>
+    );
+  }
 };
 
 const Header = ({ name }) => {
