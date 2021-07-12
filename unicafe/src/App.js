@@ -23,17 +23,28 @@ const App = () => {
   return (
     <div>
       <Header name="give feedback" />
+
       <Button handleClick={giveGoodFeedback} text="good" />
       <Button handleClick={giveNeutralFeedback} text="neutral" />
       <Button handleClick={giveBadFeedback} text="bad" />
+
       <Header name="statistics" />
+
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} />
+    </div>
+  );
+};
+
+const Statistics = ({ good, neutral, bad, all }) => {
+  return (
+    <>
       <Display name="good" value={good} />
       <Display name="neutral" value={neutral} />
       <Display name="bad" value={bad} />
       <Display name="all" value={good + neutral + bad} />
       <Display name="average" value={(good - bad) / all} />
       <Display name="positive" value={(good / all) * 100} />
-    </div>
+    </>
   );
 };
 
