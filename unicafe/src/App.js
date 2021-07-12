@@ -42,19 +42,27 @@ const App = () => {
 
         <Header name="statistics" />
 
-        <Statistics text="good" value={good} />
-        <Statistics text="neutral" value={neutral} />
-        <Statistics text="bad" value={bad} />
-        <Statistics text="all" value={all} />
-        <Statistics text="average" value={(good - bad) / all} />
-        <Statistics text="positive" value={(good / all) * 100} />
+        <table>
+          <tbody>
+            <Statistics text="good" value={good} />
+            <Statistics text="neutral" value={neutral} />
+            <Statistics text="bad" value={bad} />
+            <Statistics text="all" value={all} />
+            <Statistics text="average" value={(good - bad) / all} />
+            <Statistics text="positive" value={(good / all) * 100} />
+          </tbody>
+        </table>
       </div>
     );
   }
 };
 
 const Statistics = ({ text, value }) => {
-  return <Display text={text} value={value} />;
+  return (
+    <tr>
+      <Display text={text} value={value} />
+    </tr>
+  );
 };
 
 const Header = ({ name }) => {
@@ -77,17 +85,17 @@ const Display = ({ text, value }) => {
 
   if (text === "positive") {
     return (
-      <span>
-        {text} {value} %
-        <br />
-      </span>
+      <>
+        <td>{text}</td>
+        <td>{value} %</td>
+      </>
     );
   } else {
     return (
-      <span>
-        {text} {value}
-        <br />
-      </span>
+      <>
+        <td>{text}</td>
+        <td>{value}</td>
+      </>
     );
   }
 };
