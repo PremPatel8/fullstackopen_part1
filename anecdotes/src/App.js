@@ -12,33 +12,58 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
+  const [highestVoted, setHighestVoted] = useState(0);
+
+  const giveVote = () => {
+    const votesCopy = [...votes];
+    votesCopy[selected] += 1;
+    setVotes(votesCopy);
+    calculateHighestVotedAnecdote();
+  };
+
+  const calculateHighestVotedAnecdote = () => {
+    var indexOfMaxValue = votes.reduce((iMax, x, i, arr) => (x > arr[iMax] ? i : iMax), 0);
+    setHighestVoted(indexOfMaxValue);
+  };
 
   const getNextAnecdote = () => {
     const max = anecdotes.length;
     setSelected(Math.floor(Math.random() * max));
   };
 
-  const giveVote = () => {
-    const votesCopy = [...votes];
-    votesCopy[selected] += 1;
-    setVotes(votesCopy);
-  };
-
   return (
     <div>
-      {anecdotes[selected]}
-      <br />
-      <p>has {votes[selected]} votes</p>
+      <Header name="Anecdote of the day" />
+
+      <Anecdote text={anecdotes[selected]} />
+      <Votecount count={votes[selected]} />
+
       <Button handleClick={giveVote} text="vote" />
       <Button handleClick={getNextAnecdote} text="next anecdote" />
+
+      <Header name="Anecdote with most votes" />
+
+      <Anecdote text={anecdotes[highestVoted]} />
+      <Votecount count={votes[highestVoted]} />
     </div>
   );
 };
 
 const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>;
+};
+
+const Header = ({ name }) => {
+  return <h1>{name}</h1>;
+};
+
+const Anecdote = ({ text }) => {
+  return <p>{text}</p>;
+};
+
+const Votecount = ({ count }) => {
+  return <p>has {count} votes</p>;
 };
 
 export default App;
