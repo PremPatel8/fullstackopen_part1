@@ -13,19 +13,21 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
-  const [highestVoted, setHighestVoted] = useState(0);
+  // const [highestVoted, setHighestVoted] = useState(0);
 
   const giveVote = () => {
     const votesCopy = [...votes];
     votesCopy[selected] += 1;
     setVotes(votesCopy);
-    calculateHighestVotedAnecdote();
+    // calculateHighestVotedAnecdote();
   };
 
-  const calculateHighestVotedAnecdote = () => {
-    var indexOfMaxValue = votes.reduce((iMax, x, i, arr) => (x > arr[iMax] ? i : iMax), 0);
-    setHighestVoted(indexOfMaxValue);
-  };
+  // const calculateHighestVotedAnecdote = () => {
+  //   var indexOfMaxValue = votes.reduce((iMax, x, i, arr) => (x > arr[iMax] ? i : iMax), 0);
+  //   setHighestVoted(indexOfMaxValue);
+  // };
+
+  const highestVoted = votes.reduce((iMax, x, i, arr) => (x > arr[iMax] ? i : iMax), 0);
 
   const getNextAnecdote = () => {
     const max = anecdotes.length;
